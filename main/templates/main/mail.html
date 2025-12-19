@@ -1,0 +1,27 @@
+<!-- templates/your_app/email_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message from {{ first_name }} {{ last_name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden mt-10">
+        <div class="p-6">
+            <h1 class="text-2xl font-bold text-gray-800">Message from {{ first_name }} {{ last_name }}</h1>
+            
+            <p class="mt-4 text-gray-700">{{ message }}</p>
+
+            <div class="mt-6 border-t pt-4 text-sm text-gray-600">
+                <p><strong>Phone:</strong> {{ phone_number }}</p>
+                <p><strong>Zip Code:</strong> {{ zip_code }}</p>
+            </div>
+        </div>
+        <div class="bg-gray-100 p-4 text-center">
+            <p class="text-gray-500">© 2025. SolarTech NG. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

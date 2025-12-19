@@ -1,0 +1,3905 @@
+{% extends 'main/base.html' %} {% load static %} {% load humanize %}{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        
+          .slider-section {
+            position: relative;
+            height: 60vh;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .slider-container {
+            height: 100%;
+        }
+        
+        .slider-slide {
+            height: 60vh;
+            position: relative;
+        }
+        
+        /* Video background styling */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        /* Image background styling */
+        .image-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+        
+        /* Overlay for better text readability */
+        .slider-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        
+        /* Content positioning - Centered */
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+        
+        .text-content {
+            max-width: 800px;
+        }
+        
+        /* Typography */
+        .subtitle {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #0dcaf0; /* Cyan color */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .title {
+            font-size: 46px;
+            line-height: 1.2;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+        
+        .title strong {
+            font-weight: 700;
+            color: #0dcaf0;
+        }
+        
+        /* Button Styles */
+        .cta-button {
+            display: inline-block;
+            background-color: #0d6efd;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: normal;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .cta-button:hover {
+            background-color: #0b5ed7;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+        
+        /* Animation classes */
+        .fadeInUp {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .title {
+                font-size: 26px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .cta-button {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Demo info section */
+        .demo-info {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .demo-info h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .demo-info p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature h3 {
+            color: #0d6efd;
+            margin-bottom: 10px;
+        }
+
+    </style>
+ <!-- ========== MAIN CONTENT ========== -->
+        <main id="content" role="main">
+            <!-- Slider Section -->
+    <section class="slider-section">
+        <div class="slider-container">
+            <!-- Slide 1 - Video -->
+            <div class="slider-slide">
+                <video class="video-background" autoplay muted loop playsinline>
+                    <source src="{% static 'assets/img/WhatsApp Video 2025-10-02 at 23.59.52.mp4' %}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="slide-content">
+                    <div class="content-wrapper">
+                        <div class="text-content">
+                            <h6 class="subtitle fadeInUp">Power Your World, Save More</h6>
+                            <h1 class="title fadeInUp" style="animation-delay: 0.2s;">
+                                CUT YOUR ENERGY COSTS BY <strong>UP TO 40%</strong>
+                            </h1>
+                            <a href="https://wa.me/09020202010" target="_blank" class="cta-button fadeInUp" style="animation-delay: 0.3s;">
+                                Let's Talk Power
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 - Video -->
+            <div class="slider-slide">
+                <video class="video-background" autoplay muted loop playsinline>
+                    <source src="{% static 'assets/img/WhatsApp Video 2025-10-02 at 23.59.53.mp4' %}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="slide-content">
+                    <div class="content-wrapper">
+                        <div class="text-content">
+                            <h6 class="subtitle fadeInUp">Renewable Energy Solutions</h6>
+                            <h1 class="title fadeInUp" style="animation-delay: 0.2s;">
+                                GO GREEN AND <strong>SAVE THE PLANET</strong>
+                            </h1>
+                            <a href="https://wa.me/09020202010" target="_blank" class="cta-button fadeInUp" style="animation-delay: 0.3s;">
+                                Get Started Today
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="slider-slide">
+                <div class="image-background" style="background-image: url({% static 'assets/img/DJI_0678.jpg' %});"></div>
+                <div class="slide-content">
+                    <div class="content-wrapper">
+                        <div class="text-content">
+                            <h6 class="subtitle fadeInUp">Sustainable Energy Future</h6>
+                            <h1 class="title fadeInUp" style="animation-delay: 0.2s;">
+                                INVEST IN <strong>CLEAN ENERGY</strong> TODAY
+                            </h1>
+                            <a href="https://wa.me/09020202010" target="_blank" class="cta-button fadeInUp" style="animation-delay: 0.3s;">
+                                Request Consultation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </section>
+    <!-- End Slider Section -->
+	<div class="container">
+		<!-- Banner -->
+		<div
+			class="row mb-6 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble"
+		>
+			<div
+				class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1"
+			>
+				<a
+					href="{% url 'main:product' %}"
+					class="min-height-146 py-1 py-xl-2 py-wd-1 banner-bg d-flex align-items-center text-gray-90"
+				>
+					<div class="col-6 col-xl-7 col-wd-6 pr-0">
+						<img
+							class="img-fluid"
+							src="{% static 'assets/img/DJI_0733.jpg' %}"
+							alt="Image Description"
+						/>
+					</div>
+					<div class="col-6 col-xl-5 col-wd-6 pr-xl-4 pr-wd-3">
+						<div
+							class="mb-2 pb-1 font-size-18 font-weight-light text-ls-n1 text-lh-23"
+						>
+							BRING RELIABLE <strong>POWER</strong> HOME
+						</div>
+						<div
+							class="link text-gray-90 font-weight-bold font-size-15"
+							href="{% url 'main:product' %}"
+						>
+							Shop now
+							<span class="link__icon ml-1">
+								<span class="link__icon-inner"
+									><i class="ec ec-arrow-right-categproes"></i
+								></span>
+							</span>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div
+				class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1"
+			>
+				<a
+					href="{% url 'main:product' %}"
+					class="min-height-146 py-1 py-xl-2 py-wd-1 banner-bg d-flex align-items-center text-gray-90"
+				>
+					<div class="col-6 col-xl-7 col-wd-6 pr-0">
+						<img
+							class="img-fluid"
+							src="{% static 'assets/img/DSC00263.jpg' %}"
+							alt="Image Description"
+						/>
+					</div>
+					<div class="col-6 col-xl-5 col-wd-6 pr-xl-4 pr-wd-3">
+						<div
+							class="mb-2 pb-1 font-size-18 font-weight-light text-ls-n1 text-lh-23"
+						>
+							DURABLE INVERTERS <strong>DESIGNED TO DELIVER</strong>
+						</div>
+						<div
+							class="link text-gray-90 font-weight-bold font-size-15"
+							href="{% url 'main:product' %}"
+						>
+							Shop now
+							<span class="link__icon ml-1">
+								<span class="link__icon-inner"
+									><i class="ec ec-arrow-right-categproes"></i
+								></span>
+							</span>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div
+				class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1"
+			>
+				<a
+					href="{% url 'main:product' %}"
+					class="min-height-146 py-1 py-xl-2 py-wd-1 banner-bg d-flex align-items-center text-gray-90"
+				>
+					<div class="col-6 col-xl-7 col-wd-6 pr-0">
+						<img
+							class="img-fluid"
+							src="{% static 'assets/img/DJI_0404.jpg' %}"
+							alt="Image Description"
+						/>
+					</div>
+					<div class="col-6 col-xl-5 col-wd-6 pr-xl-4 pr-wd-3">
+						<div
+							class="mb-2 pb-1 font-size-18 font-weight-light text-ls-n1 text-lh-23"
+						>
+    						ENJOY  <strong>POWER </strong> THAT LASTS
+						</div>
+						<div
+							class="link text-gray-90 font-weight-bold font-size-15"
+							href="{% url 'main:product' %}"
+						>
+							Shop now
+							<span class="link__icon ml-1">
+								<span class="link__icon-inner"
+									><i class="ec ec-arrow-right-categproes"></i
+								></span>
+							</span>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div
+				class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1 d-xl-none d-wd-block"
+			>
+				<a
+					href="{% url 'main:product' %}"
+					class="min-height-146 py-1 py-xl-2 py-wd-1 banner-bg d-flex align-items-center text-gray-90"
+				>
+					<div class="col-6 col-xl-5 col-wd-6 pr-0">
+						<img
+							class="img-fluid"
+							src="{% static 'assets/img/DJI_0403-_1_.jpg' %}"
+							alt="Image Description"
+						/>
+					</div>
+					<div class="col-6 col-xl-7 col-wd-6">
+						<div
+							class="mb-2 pb-1 font-size-18 font-weight-light text-ls-n1 text-lh-23"
+						>
+							CATCH BIG <strong>DEALS</strong> ON SOLAR PANELS
+						</div>
+						<div
+							class="link text-gray-90 font-weight-bold font-size-15"
+							href="{% url 'main:product' %}"
+						>
+							Shop now
+							<span class="link__icon ml-1">
+								<span class="link__icon-inner"
+									><i class="ec ec-arrow-right-categproes"></i
+								></span>
+							</span>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- End Banner -->
+		<!-- Feature List -->
+		<div
+			class="mb-6 row border rounded-lg mx-0 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble"
+		>
+			<!-- Feature List -->
+			<div
+				class="media col px-6 px-xl-4 px-wd-8 flex-shrink-0 flex-xl-shrink-1 min-width-270-all py-3"
+			>
+				<div class="u-avatar mr-2">
+					<i class="text-primary ec ec-transport font-size-46"></i>
+				</div>
+				<div class="media-body text-center">
+					<span class="d-block font-weight-bold text-dark">Nationwide </span>
+					<div class="text-secondary">Delivery</div>
+				</div>
+			</div>
+			<!-- End Feature List -->
+
+			<!-- Feature List -->
+			<div
+				class="media col px-6 px-xl-4 px-wd-8 flex-shrink-0 flex-xl-shrink-1 min-width-270-all border-left py-3"
+			>
+				<div class="u-avatar mr-2">
+					<i class="text-primary ec ec-customers font-size-56"></i>
+				</div>
+				<div class="media-body text-center">
+					<span class="d-block font-weight-bold text-dark"> 99% Customer 
+</span>
+					<div class="text-secondary">Satisfaction</div>
+				</div>
+			</div>
+			<!-- End Feature List -->
+
+			<!-- Feature List -->
+			<div
+				class="media col px-6 px-xl-4 px-wd-8 flex-shrink-0 flex-xl-shrink-1 min-width-270-all border-left py-3"
+			>
+				<div class="u-avatar mr-2">
+					<i class="text-primary ec ec-returning font-size-46"></i>
+				</div>
+				<div class="media-body text-center">
+					<span class="d-block font-weight-bold text-dark">Warranty &
+</span>
+					<div class="text-secondary"> Technical Support</div>
+				</div>
+			</div>
+			<!-- End Feature List -->
+
+			<!-- Feature List -->
+			<div
+				class="media col px-6 px-xl-4 px-wd-8 flex-shrink-0 flex-xl-shrink-1 min-width-270-all border-left py-3"
+			>
+				<div class="u-avatar mr-2">
+					<i class="text-primary ec ec-payment font-size-46"></i>
+				</div>
+				<div class="media-body text-center">
+					<span class="d-block font-weight-bold text-dark">Secured 
+</span>
+					<div class="text-secondary">Payment System</div>
+				</div>
+			</div>
+			<!-- End Feature List -->
+
+			<!-- Feature List -->
+			<div
+				class="media col px-6 px-xl-4 px-wd-8 flex-shrink-0 flex-xl-shrink-1 min-width-270-all border-left py-3"
+			>
+				<div class="u-avatar mr-2">
+					<i class="text-primary ec ec-tag font-size-46"></i>
+				</div>
+				<div class="media-body text-center">
+					<span class="d-block font-weight-bold text-dark">Only 
+</span>
+					<div class="text-secondary">Top Brands</div>
+				</div>
+			</div>
+			<!-- End Feature List -->
+		</div>
+		<!-- End Feature List -->
+		<!-- Tab Prodcut Section -->
+		<div class="mb-6">
+			<!-- Nav Classic -->
+			<div class="position-relative bg-white text-center z-index-2">
+				<ul
+					class="nav nav-classic nav-tab justify-content-center"
+					id="pills-tab"
+					role="tablist"
+				>
+					<li class="nav-item">
+						<a
+							class="nav-link active js-animation-link"
+							id="pills-one-example1-tab"
+							data-toggle="pill"
+							href="#pills-one-example1"
+							role="tab"
+							aria-controls="pills-one-example1"
+							aria-selected="true"
+							data-target="#pills-one-example1"
+							data-link-group="groups"
+							data-animation-in="slideInUp"
+						>
+							<div
+								class="d-md-flex justify-content-md-center align-items-md-center"
+							>
+								Low Voltage Inverters
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a
+							class="nav-link js-animation-link"
+							id="pills-two-example1-tab"
+							data-toggle="pill"
+							href="{% url 'main:product' %}"
+							role="tab"
+							aria-controls="pills-two-example1"
+							aria-selected="false"
+							data-target="#pills-two-example1"
+							data-link-group="groups"
+							data-animation-in="slideInUp"
+						>
+							<div
+								class="d-md-flex justify-content-md-center align-items-md-center"
+							>
+								High Voltage Inverters
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a
+							class="nav-link js-animation-link"
+							id="pills-three-example1-tab"
+							data-toggle="pill"
+							href="{% url 'main:product' %}"
+							role="tab"
+							aria-controls="pills-three-example1"
+							aria-selected="false"
+							data-target="#pills-three-example1"
+							data-link-group="groups"
+							data-animation-in="slideInUp"
+						>
+							<div
+								class="d-md-flex justify-content-md-center align-items-md-center"
+							>
+								Low Voltage Batteries
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a
+							class="nav-link js-animation-link"
+							id="pills-three-example3-tab"
+							data-toggle="pill"
+							href="{% url 'main:product' %}"
+							role="tab"
+							aria-controls="pills-three-example3"
+							aria-selected="false"
+							data-target="#pills-three-example3"
+							data-link-group="groups"
+							data-animation-in="slideInUp"
+						>
+							<div
+								class="d-md-flex justify-content-md-center align-items-md-center"
+							>
+								High Voltage Batteries
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- End Nav Classic -->
+			<!-- Tab Content -->
+			<div class="tab-content" id="pills-tabContent">
+				<div
+					class="tab-pane fade pt-2 show active"
+					id="pills-one-example1"
+					role="tabpanel"
+					aria-labelledby="pills-one-example1-tab"
+					data-target-group="groups"
+				>
+					<ul class="row list-unstyled products-group no-gutters">
+
+						{% if low_voltage_inverter %}
+							{% for item in low_voltage_inverter %}
+								<li class="col-6 col-md-4 col-xl product-item">
+									<div class="product-item__outer h-100 w-100">
+										<div class="product-item__inner px-xl-4 p-3">
+											<div class="product-item__body pb-xl-2">
+												<div class="mb-2">
+													<a
+														href="{% url 'main:low_inverters_detail' item.id %}"
+														class="font-size-12 text-gray-5"
+														>{{ item.category  }}</a
+													>
+												</div>
+												<h5 class="mb-1 product-item__title">
+													<a
+														href="{% url 'main:low_inverters_detail' item.id %}"
+														class="text-blue font-weight-bold"
+														>{{ item.title }} </a
+													>
+												</h5>
+												<div class="mb-2">
+													<a
+														href="{% url 'main:low_inverters_detail' item.id %}"
+														class="d-block text-center"
+														><img
+															class="img-fluid"
+															src="{{ item.image1.url }}"
+															alt="Image Description"
+													/></a>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div class="prodcut-price">
+														<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+													</div>
+													<div class="d-none d-xl-block prodcut-add-cart">
+														<a
+															href="{% url 'main:add_to_cart' item.id 'LowVoltageInverter' %}"
+															class="btn-add-cart btn-primary transition-3d-hover"
+															><i class="ec ec-add-to-cart"></i
+														></a>
+													</div>
+												</div>
+											</div>
+											<div class="product-item__footer">
+												<div class="border-top pt-2 flex-center-between flex-wrap">
+													<a
+														href="{% url 'main:low_inverters_detail' item.id %}"
+														class="text-gray-6 font-size-13"
+														><i class="ec ec-compare mr-1 font-size-15"></i>
+														Compare</a
+													>
+													<a
+														href="{% url 'main:add_to_cart' item.id 'LowVoltageInverter' %}"
+														class="text-gray-6 font-size-13"
+														><i class="ec ec-favorites mr-1 font-size-15"></i>
+														Wishlist</a
+													>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							{% endfor %}
+						{% else %}
+								<p>No on sale products found</p>
+						{% endif %}
+
+					</ul>
+				</div>
+				<div
+					class="tab-pane fade pt-2"
+					id="pills-two-example1"
+					role="tabpanel"
+					aria-labelledby="pills-two-example1-tab"
+					data-target-group="groups"
+				>
+				<ul class="row list-unstyled products-group no-gutters">
+
+					{% if high_voltage_inverter %}
+						{% for item in high_voltage_inverter %}
+							<li class="col-6 col-md-4 col-xl product-item">
+								<div class="product-item__outer h-100 w-100">
+									<div class="product-item__inner px-xl-4 p-3">
+										<div class="product-item__body pb-xl-2">
+											<div class="mb-2">
+												<a
+													href="{% url 'main:high_inverters_detail' item.id %}"
+													class="font-size-12 text-gray-5"
+													>{{ item.category  }}</a
+												>
+											</div>
+											<h5 class="mb-1 product-item__title">
+												<a
+													href="{% url 'main:high_inverters_detail' item.id %}"
+													class="text-blue font-weight-bold"
+													>{{ item.title }} </a
+												>
+											</h5>
+											<div class="mb-2">
+												<a
+													href="{% url 'main:high_inverters_detail' item.id %}"
+													class="d-block text-center"
+													><img
+														class="img-fluid"
+														src="{{ item.image1.url }}"
+														alt="Image Description"
+												/></a>
+											</div>
+											<div class="flex-center-between mb-1">
+												<div class="prodcut-price">
+													<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+												</div>
+												<div class="d-none d-xl-block prodcut-add-cart">
+													<a
+														href="{% url 'main:add_to_cart' item.id 'HighVoltageInverter' %}"
+														class="btn-add-cart btn-primary transition-3d-hover"
+														><i class="ec ec-add-to-cart"></i
+													></a>
+												</div>
+											</div>
+										</div>
+										<div class="product-item__footer">
+											<div class="border-top pt-2 flex-center-between flex-wrap">
+												<a
+													href="{% url 'main:high_inverters_detail' item.id %}"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-compare mr-1 font-size-15"></i>
+													Compare</a
+												>
+												<a
+													href="{% url 'main:add_to_cart' item.id 'HighVoltageInverter' %}"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-favorites mr-1 font-size-15"></i>
+													Wishlist</a
+												>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+					{% else %}
+							<p>No featured products found</p>
+					{% endif %}
+
+				</ul>
+				</div>
+				<div
+					class="tab-pane fade pt-2"
+					id="pills-three-example1"
+					role="tabpanel"
+					aria-labelledby="pills-three-example1-tab"
+					data-target-group="groups"
+				>
+				<ul class="row list-unstyled products-group no-gutters">
+
+					{% if low_voltage_battery %}
+						{% for item in low_voltage_battery %}
+							<li class="col-6 col-md-4 col-xl product-item">
+								<div class="product-item__outer h-100 w-100">
+									<div class="product-item__inner px-xl-4 p-3">
+										<div class="product-item__body pb-xl-2">
+											<div class="mb-2">
+												<a
+													href="{% url 'main:low_batteries_detail' item.id %}"
+													class="font-size-12 text-gray-5"
+													>{{ item.category  }}</a
+												>
+											</div>
+											<h5 class="mb-1 product-item__title">
+												<a
+													href="{% url 'main:low_batteries_detail' item.id %}"
+													class="text-blue font-weight-bold"
+													>{{ item.title }} </a
+												>
+											</h5>
+											<div class="mb-2">
+												<a
+													href="{% url 'main:low_batteries_detail' item.id %}"
+													class="d-block text-center"
+													><img
+														class="img-fluid"
+														src="{{ item.image1.url }}"
+														alt="Image Description"
+												/></a>
+											</div>
+											<div class="flex-center-between mb-1">
+												<div class="prodcut-price">
+													<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+												</div>
+												<div class="d-none d-xl-block prodcut-add-cart">
+													<a
+														href="{% url 'main:low_batteries_detail' item.id %}"
+														class="btn-add-cart btn-primary transition-3d-hover"
+														><i class="ec ec-add-to-cart"></i
+													></a>
+												</div>
+											</div>
+										</div>
+										<div class="product-item__footer">
+											<div class="border-top pt-2 flex-center-between flex-wrap">
+												<a
+													href="{% url 'main:low_batteries_detail' item.id %}"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-compare mr-1 font-size-15"></i>
+													Compare</a
+												>
+												<a
+													href="{% url 'main:add_to_cart' item.id 'LowVoltageBattery' %}"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-favorites mr-1 font-size-15"></i>
+													Wishlist</a
+												>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+					{% else %}
+							<p>No top rated products found</p>
+					{% endif %}
+
+				</ul>
+				</div>
+				<div
+					class="tab-pane fade pt-2"
+					id="pills-three-example3"
+					role="tabpanel"
+					aria-labelledby="pills-three-example3-tab"
+					data-target-group="groups"
+				>
+				<ul class="row list-unstyled products-group no-gutters">
+
+					{% if high_voltage_battery %}
+						{% for item in high_voltage_battery %}
+							<li class="col-6 col-md-4 col-xl product-item">
+								<div class="product-item__outer h-100 w-100">
+									<div class="product-item__inner px-xl-4 p-3">
+										<div class="product-item__body pb-xl-2">
+											<div class="mb-2">
+												<a
+													href="{% url 'main:high_batteries_detail' item.id %}"
+													class="font-size-12 text-gray-5"
+													>{{ item.category  }}</a
+												>
+											</div>
+											<h5 class="mb-1 product-item__title">
+												<a
+													href="{% url 'main:high_batteries_detail' item.id %}"
+													class="text-blue font-weight-bold"
+													>{{ item.title }} </a
+												>
+											</h5>
+											<div class="mb-2">
+												<a
+													href="{% url 'main:high_batteries_detail' item.id %}"
+													class="d-block text-center"
+													><img
+														class="img-fluid"
+														src="{{ item.image1.url }}"
+														alt="Image Description"
+												/></a>
+											</div>
+											<div class="flex-center-between mb-1">
+												<div class="prodcut-price">
+													<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+												</div>
+												<div class="d-none d-xl-block prodcut-add-cart">
+													<a
+														href="{% url 'main:high_batteries_detail' item.id %}"
+														class="btn-add-cart btn-primary transition-3d-hover"
+														><i class="ec ec-add-to-cart"></i
+													></a>
+												</div>
+											</div>
+										</div>
+										<div class="product-item__footer">
+											<div class="border-top pt-2 flex-center-between flex-wrap">
+												<a
+													href="{% url 'main:high_batteries_detail' item.id %}"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-compare mr-1 font-size-15"></i>
+													Compare</a
+												>
+												<a
+													href="{% url 'main:add_to_cart' item.id 'HighVoltageBattery' %}"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-favorites mr-1 font-size-15"></i>
+													Wishlist</a
+												>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+					{% else %}
+							<p>No top rated products found</p>
+					{% endif %}
+
+				</ul>
+				</div>
+			</div>
+			<!-- End Tab Content -->
+		</div>
+		<!-- End Tab Prodcut Section -->
+	</div>
+	<!-- Television Entertainment -->
+	<div
+		class="mb-6"
+		style="background-image: url({% static 'assets/img/1920X1080/img4.jpg' %})"
+	>
+		<div class="container">
+			<div class="row min-height-564 align-items-center">
+				<div class="col-12 col-lg-4 col-xl-5 col-wd-6 d-none d-md-block">
+					<img
+						class="img-fluid"
+						src="{% static 'assets/img/DJI_0403-_1_.jpg' %}"
+						alt="Image Description"
+					/>
+				</div>
+				<div class="col-12 col-lg-8 col-xl-7 col-wd-6 pt-6 pt-md-0">
+					<div class="d-flex border-bottom border-color-1 mr-md-2">
+						<h3
+							class="section-title section-title__full mb-0 pb-2 font-size-22"
+						>
+							Recently Added
+						</h3>
+					</div>
+					<div
+						class="js-slick-carousel position-static u-slick u-slick--gutters-2 u-slick overflow-hidden u-slick-overflow-visble py-5"
+						data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10 pt-6 pt-md-0"
+						data-arrow-left-classes="fa fa-angle-left right-2"
+						data-arrow-right-classes="fa fa-angle-right right-1"
+						data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-4"
+					>
+						<div class="js-slide">
+							<ul
+								class="row list-unstyled products-group no-gutters mb-0 overflow-visible"
+							>
+
+							{% if sliding_products %}
+								{% for item in sliding_products %}
+								<li
+									class="col-md-6 product-item product-item__card mb-2 remove-divider pr-md-2 border-bottom-0"
+								>
+									<div class="product-item__outer h-100 w-100">
+										<div
+											class="product-item__inner p-md-3 row no-gutters bg-white max-width-334"
+										>
+											<div class="col col-lg-auto product-media-left">
+												<a
+													href="{% url 'main:detail' item.id %}"
+													class="max-width-120 d-block"
+													><img
+														class="img-fluid"
+														src="{{ item.image1.url }}"
+														alt="Image Description"
+												/></a>
+											</div>
+											<div
+												class="col product-item__body pl-2 pl-lg-3 mr-xl-2 mr-wd-1 pr-3 pr-md-0 pt-1 pt-md-0"
+											>
+												<div class="mb-2">
+													<div class="mb-2">
+														<a
+															href="{% url 'main:detail' item.id %}"
+															class="font-size-12 text-gray-5"
+															>{{ item.category }}</a
+														>
+													</div>
+													<h5 class="product-item__title">
+														<a
+															href="{% url 'main:detail' item.id %}"
+															class="text-blue font-weight-bold"
+															>{{ item.title }}</a
+														>
+													</h5>
+												</div>
+												<div class="flex-center-between mb-2">
+													<div class="prodcut-price">
+														<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+													</div>
+													<div class="d-none d-xl-block prodcut-add-cart">
+														<a
+															href="{% url 'main:detail' item.id %}"
+															class="btn-add-cart btn-primary transition-3d-hover"
+															><i class="ec ec-add-to-cart"></i
+														></a>
+													</div>
+												</div>
+												<div class="product-item__footer bg-white">
+													<div
+														class="border-top pt-2 flex-center-between flex-wrap"
+													>
+														<a
+															href="{% url 'main:detail' item.id %}"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-compare mr-1 font-size-15"></i>
+															Compare</a
+														>
+														<a
+															href="{% url 'main:add_to_cart' item.id None %}"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-favorites mr-1 font-size-15"></i>
+															Wishlist</a
+														>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								{% endfor %}
+							{% endif %}
+							</ul>
+						</div>
+						<div class="js-slide">
+							<ul
+								class="row list-unstyled products-group no-gutters mb-0 overflow-visible"
+							>
+
+							{% if sliding_products %}
+								{% for item in sliding_products %}
+								<li
+									class="col-md-6 product-item product-item__card mb-2 remove-divider pr-md-2 border-bottom-0"
+								>
+									<div class="product-item__outer h-100 w-100">
+										<div
+											class="product-item__inner p-md-3 row no-gutters bg-white max-width-334"
+										>
+											<div class="col col-lg-auto product-media-left">
+												<a
+													href="{% url 'main:detail' item.id %}"
+													class="max-width-120 d-block"
+													><img
+														class="img-fluid"
+														src="{{ item.image1.url }}"
+														alt="Image Description"
+												/></a>
+											</div>
+											<div
+												class="col product-item__body pl-2 pl-lg-3 mr-xl-2 mr-wd-1 pr-3 pr-md-0 pt-1 pt-md-0"
+											>
+												<div class="mb-2">
+													<div class="mb-2">
+														<a
+															href="{% url 'main:detail' item.id %}"
+															class="font-size-12 text-gray-5"
+															>{{ item.category }}</a
+														>
+													</div>
+													<h5 class="product-item__title">
+														<a
+															href="{% url 'main:detail' item.id %}"
+															class="text-blue font-weight-bold"
+															>{{ item.title }}</a
+														>
+													</h5>
+												</div>
+												<div class="flex-center-between mb-2">
+													<div class="prodcut-price">
+														<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+													</div>
+													<div class="d-none d-xl-block prodcut-add-cart">
+														<a
+															href="{% url 'main:detail' item.id %}"
+															class="btn-add-cart btn-primary transition-3d-hover"
+															><i class="ec ec-add-to-cart"></i
+														></a>
+													</div>
+												</div>
+												<div class="product-item__footer bg-white">
+													<div
+														class="border-top pt-2 flex-center-between flex-wrap"
+													>
+														<a
+															href="{% url 'main:detail' item.id %}"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-compare mr-1 font-size-15"></i>
+															Compare</a
+														>
+														<a
+															href="{% url 'main:add_to_cart' item.id None %}"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-favorites mr-1 font-size-15"></i>
+															Wishlist</a
+														>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								{% endfor %}
+							{% endif %}
+							</ul>
+						</div>
+						<div class="js-slide">
+							<ul
+								class="row list-unstyled products-group no-gutters mb-0 overflow-visible"
+							>
+							{% if sliding_products %}
+							{% for item in sliding_products %}
+							<li
+								class="col-md-6 product-item product-item__card mb-2 remove-divider pr-md-2 border-bottom-0"
+							>
+								<div class="product-item__outer h-100 w-100">
+									<div
+										class="product-item__inner p-md-3 row no-gutters bg-white max-width-334"
+									>
+										<div class="col col-lg-auto product-media-left">
+											<a
+												href="{% url 'main:detail' item.id %}"
+												class="max-width-120 d-block"
+												><img
+													class="img-fluid"
+													src="{{ item.image1.url }}"
+													alt="Image Description"
+											/></a>
+										</div>
+										<div
+											class="col product-item__body pl-2 pl-lg-3 mr-xl-2 mr-wd-1 pr-3 pr-md-0 pt-1 pt-md-0"
+										>
+											<div class="mb-2">
+												<div class="mb-2">
+													<a
+														href="{% url 'main:detail' item.id %}"
+														class="font-size-12 text-gray-5"
+														>{{ item.category }}</a
+													>
+												</div>
+												<h5 class="product-item__title">
+													<a
+														href="{% url 'main:detail' item.id %}"
+														class="text-blue font-weight-bold"
+														>{{ item.title }}</a
+													>
+												</h5>
+											</div>
+											<div class="flex-center-between mb-2">
+												<div class="prodcut-price">
+													<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+												</div>
+												<div class="d-none d-xl-block prodcut-add-cart">
+													<a
+													href="{% url 'main:add_to_cart' item.id None %}"
+														class="btn-add-cart btn-primary transition-3d-hover"
+														><i class="ec ec-add-to-cart"></i
+													></a>
+												</div>
+											</div>
+											<div class="product-item__footer bg-white">
+												<div
+													class="border-top pt-2 flex-center-between flex-wrap"
+												>
+													<a
+														href="{% url 'main:detail' item.id %}"
+														class="text-gray-6 font-size-13"
+														><i class="ec ec-compare mr-1 font-size-15"></i>
+														Compare</a
+													>
+													<a
+													href="{% url 'main:add_to_cart' item.id None %}"
+														class="text-gray-6 font-size-13"
+														><i class="ec ec-favorites mr-1 font-size-15"></i>
+														Wishlist</a
+													>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							{% endfor %}
+						{% endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Television Entertainment -->
+	<div class="container">
+
+		<!-- Trending Products -->
+		<div class="mb-8 position-relative">
+			<dv
+				class="d-flex justify-content-between border-bottom border-color-1 flex-md-nowrap flex-wrap border-sm-bottom-0"
+			>
+				<h3 class="section-title section-title__full mb-0 pb-2 font-size-22">
+					Trending Products
+				</h3>
+			</dv>
+			<div
+				class="js-slick-carousel position-static u-slick u-slick--gutters-1 overflow-hidden u-slick-overflow-visble pt-3 pb-3"
+				data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10"
+				data-arrow-left-classes="fa fa-angle-left right-1"
+				data-arrow-right-classes="fa fa-angle-right right-0"
+				data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-4"
+			>
+				<div class="js-slide">
+					<ul
+						class="row list-unstyled products-group no-gutters mb-0 overflow-visible"
+					>
+					{% if trending_products1 %}
+						{% for item in trending_products1 %}
+							<li
+								class="col-wd-3 col-md-4 product-item product-item__card pb-2 mb-2 pb-md-0 mb-md-0 border-bottom border-md-bottom-0"
+							>
+								<div class="product-item__outer h-100 w-100">
+									<div class="product-item__inner p-md-3 row no-gutters">
+										<div class="col col-lg-auto product-media-left">
+											<a
+											href="{% url 'main:detail' item.id %}"
+												class="max-width-150 d-block"
+												><img
+													class="img-fluid"
+													src="{{ item.image1.url }}"
+													alt="Image Description"
+											/></a>
+										</div>
+										<div
+											class="col product-item__body pl-2 pl-lg-3 mr-xl-2 mr-wd-1"
+										>
+											<div class="mb-4">
+												<div class="mb-2">
+													<a
+													href="{% url 'main:detail' item.id %}"
+														class="font-size-12 text-gray-5"
+														>{{ item.category }}</a
+													>
+												</div>
+												<h5 class="product-item__title">
+													<a
+													href="{% url 'main:detail' item.id %}"
+														class="text-blue font-weight-bold"
+														>{{ item.title }}</a
+													>
+												</h5>
+											</div>
+											<div class="flex-center-between mb-3">
+												<div class="prodcut-price">
+													<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+												</div>
+												<div class="d-none d-xl-block prodcut-add-cart">
+													<a
+													href="{% url 'main:add_to_cart' item.id None %}"
+														class="btn-add-cart btn-primary transition-3d-hover"
+														><i class="ec ec-add-to-cart"></i
+													></a>
+												</div>
+											</div>
+											<div class="product-item__footer">
+												<div
+													class="border-top pt-2 flex-center-between flex-wrap"
+												>
+													<a
+													href="{% url 'main:detail' item.id %}"
+														class="text-gray-6 font-size-13"
+														><i class="ec ec-compare mr-1 font-size-15"></i>
+														Compare</a
+													>
+													<a
+													href="{% url 'main:add_to_cart' item.id None %}"
+														class="text-gray-6 font-size-13"
+														><i class="ec ec-favorites mr-1 font-size-15"></i>
+														Wishlist</a
+													>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+					{% endif %}
+					</ul>
+				</div>
+				<div class="js-slide">
+					<ul
+						class="row list-unstyled products-group no-gutters mb-0 overflow-visible"
+					>
+					{% if trending_products2 %}
+					{% for item in trending_products2 %}
+						<li
+							class="col-wd-3 col-md-4 product-item product-item__card pb-2 mb-2 pb-md-0 mb-md-0 border-bottom border-md-bottom-0"
+						>
+							<div class="product-item__outer h-100 w-100">
+								<div class="product-item__inner p-md-3 row no-gutters">
+									<div class="col col-lg-auto product-media-left">
+										<a
+											hhref="{% url 'main:detail' item.id %}"
+											class="max-width-150 d-block"
+											><img
+												class="img-fluid"
+												src="{{ item.image1.url }}"
+												alt="Image Description"
+										/></a>
+									</div>
+									<div
+										class="col product-item__body pl-2 pl-lg-3 mr-xl-2 mr-wd-1"
+									>
+										<div class="mb-4">
+											<div class="mb-2">
+												<a
+												href="{% url 'main:detail' item.id %}"
+													class="font-size-12 text-gray-5"
+													>{{ item.category }}</a
+												>
+											</div>
+											<h5 class="product-item__title">
+												<a
+												href="{% url 'main:detail' item.id %}"
+													class="text-blue font-weight-bold"
+													>{{ item.title }}</a
+												>
+											</h5>
+										</div>
+										<div class="flex-center-between mb-3">
+											<div class="prodcut-price">
+												<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+											</div>
+											<div class="d-none d-xl-block prodcut-add-cart">
+												<a
+												href="{% url 'main:add_to_cart' item.id None %}"
+													class="btn-add-cart btn-primary transition-3d-hover"
+													><i class="ec ec-add-to-cart"></i
+												></a>
+											</div>
+										</div>
+										<div class="product-item__footer">
+											<div
+												class="border-top pt-2 flex-center-between flex-wrap"
+											>
+												<a
+												href="{% url 'main:detail' item.id %}"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-compare mr-1 font-size-15"></i>
+													Compare</a
+												>
+												<a
+												href="{% url 'main:add_to_cart' item.id None %}"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-favorites mr-1 font-size-15"></i>
+													Wishlist</a
+												>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				{% endif %}
+					</ul>
+				</div>
+				<div class="js-slide">
+					<ul
+						class="row list-unstyled products-group no-gutters mb-0 overflow-visible"
+					>
+					{% if trending_products3 %}
+					{% for item in trending_products3 %}
+						<li
+							class="col-wd-3 col-md-4 product-item product-item__card pb-2 mb-2 pb-md-0 mb-md-0 border-bottom border-md-bottom-0"
+						>
+							<div class="product-item__outer h-100 w-100">
+								<div class="product-item__inner p-md-3 row no-gutters">
+									<div class="col col-lg-auto product-media-left">
+										<a
+											href="{% url 'main:detail' item.id %}"
+											class="max-width-150 d-block"
+											><img
+												class="img-fluid"
+												src="{{ item.image1.url }}"
+												alt="Image Description"
+										/></a>
+									</div>
+									<div
+										class="col product-item__body pl-2 pl-lg-3 mr-xl-2 mr-wd-1"
+									>
+										<div class="mb-4">
+											<div class="mb-2">
+												<a
+												href="{% url 'main:detail' item.id %}"
+													class="font-size-12 text-gray-5"
+													>{{ item.category }}</a
+												>
+											</div>
+											<h5 class="product-item__title">
+												<a
+													href="{% url 'main:detail' item.id %}"
+													class="text-blue font-weight-bold"
+													>{{ item.title }}</a
+												>
+											</h5>
+										</div>
+										<div class="flex-center-between mb-3">
+											<div class="prodcut-price">
+												<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+											</div>
+											<div class="d-none d-xl-block prodcut-add-cart">
+												<a
+													href="{% url 'main:add_to_cart' item.id None %}"
+													class="btn-add-cart btn-primary transition-3d-hover"
+													><i class="ec ec-add-to-cart"></i
+												></a>
+											</div>
+										</div>
+										<div class="product-item__footer">
+											<div
+												class="border-top pt-2 flex-center-between flex-wrap"
+											>
+												<a
+												href="{% url 'main:detail' item.id %}"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-compare mr-1 font-size-15"></i>
+													Compare</a
+												>
+												<a
+												href="{% url 'main:add_to_cart' item.id None %}"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-favorites mr-1 font-size-15"></i>
+													Wishlist</a
+												>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				{% endif %}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- End Trending Products -->
+	</div>
+	<!-- Products-8-1 -->
+	<div class="products-group-8-1 space-1 bg-gray-7 mb-6">
+		<h2 class="sr-only">Products Grid</h2>
+		<div class="container">
+			<!-- Nav nav-pills -->
+			<div class="position-relative text-center z-index-2 mb-3">
+				<div
+					class="d-flex justify-content-between border-bottom border-color-1 flex-lg-nowrap flex-wrap border-md-down-top-0 border-md-down-bottom-0"
+				>
+					<h3 class="section-title mb-0 pb-2 font-size-22">Bestsellers</h3>
+
+					
+				</div>
+			</div>
+			<!-- End Nav Pills -->
+
+			<!-- Tab Content -->
+			<div class="tab-content" id="Tpills-tabContent">
+				<div
+					class="tab-pane fade pt-2 show active"
+					id="Tpills-one-example1"
+					role="tabpanel"
+					aria-labelledby="Tpills-one-example1-tab"
+				>
+					<div class="row no-gutters">
+						<div class="col-md-6 col-lg-7 col-wd-8 d-md-flex d-wd-block">
+							<ul class="row list-unstyled products-group no-gutters mb-0">
+								{% if best_seller_products1 %}
+								{% for item in best_seller_products1 %}
+									<li
+										class="col-md-6 col-lg-4 col-wd-3 product-item remove-divider"
+									>
+										<div
+											class="product-item__outer h-100 w-100 w-100 prodcut-box-shadow"
+										>
+											<div class="product-item__inner bg-white p-3">
+												<div class="product-item__body pb-xl-2">
+													<div class="mb-2">
+														<a
+														href="{% url 'main:detail' item.id %}"
+															class="font-size-12 text-gray-5"
+															>{{ item.categeory }}</a
+														>
+													</div>
+													<h5 class="mb-1 product-item__title">
+														<a
+														href="{% url 'main:detail' item.id %}"
+															class="text-blue font-weight-bold"
+															>{{ item.title }}</a
+														>
+													</h5>
+													<div class="mb-2">
+														<a
+														href="{% url 'main:detail' item.id %}"
+															class="d-block text-center"
+															><img
+																class="img-fluid"
+																src="{{ item.image1.url }}"
+																alt="Image Description"
+														/></a>
+													</div>
+													<div class="flex-center-between mb-1">
+														<div class="prodcut-price">
+															<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+														</div>
+														<div class="d-none d-xl-block prodcut-add-cart">
+															<a
+															href="{% url 'main:add_to_cart' item.id None %}"
+																class="btn-add-cart btn-primary transition-3d-hover"
+																><i class="ec ec-add-to-cart"></i
+															></a>
+														</div>
+													</div>
+												</div>
+												<div class="product-item__footer">
+													<div
+														class="border-top pt-2 flex-center-between flex-wrap"
+													>
+														<a
+														href="{% url 'main:detail' item.id %}"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-compare mr-1 font-size-15"></i>
+															Compare</a
+														>
+														<a
+														href="{% url 'main:add_to_cart' item.id None %}"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-favorites mr-1 font-size-15"></i>
+															Add to Wishlist</a
+														>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+								{% endfor %}
+								{% else %}
+									<p>Sorry no product yet</p>
+								{% endif %}
+							</ul>
+						</div>
+						<div class="col-md-6 col-lg-5 col-wd-4 products-group-1">
+							<ul
+								class="row list-unstyled products-group no-gutters bg-white h-100 mb-0"
+							>
+								<li class="col product-item remove-divider">
+									<div
+										class="product-item__outer h-100 w-100 w-100 prodcut-box-shadow"
+									>
+										<div class="product-item__inner bg-white p-3">
+											<div class="product-item__body d-flex flex-column">
+												<div class="mb-1">
+													<div class="mb-2">
+														<a
+														href="#"
+															class="font-size-12 text-gray-5"
+															>{{ best_seller_products1.0.category }}</a
+														>
+													</div>
+													<h5 class="mb-0 product-item__title">
+														<a
+														href="#"
+															class="text-blue font-weight-bold"
+															>{{ best_seller_products1.0.title }}</a
+														>
+													</h5>
+												</div>
+												<div class="mb-1 min-height-8-1">
+													<a
+													href="#"
+														class="d-block text-center my-4 mt-lg-6 mb-xl-5 mb-lg-0 mt-xl-0 mb-xl-0 mt-wd-6 mb-wd-5"
+														><img
+															class="img-fluid"
+															src="{{ best_seller_products1.0.image1.url }}"
+															alt="Image Description"
+													/></a>
+													<!-- Gallery -->
+													<div class="row mx-gutters-2 mb-3">
+														<div class="col-auto">
+															<!-- Gallery -->
+															<a
+																class="js-fancybox max-width-60 u-media-viewer"
+																href="javascript:;"
+																data-src="{{ best_seller_products1.0.image1.url }}"
+																data-fancybox="fancyboxGallery6"
+																data-caption="Electro in frames - image #01"
+																data-speed="700"
+																data-is-infinite="true"
+															>
+																<img
+																	class="img-fluid border"
+																	src="{{ best_seller_products1.0.image1.url }}"
+																	alt="Image Description"
+																/>
+
+																<span class="u-media-viewer__container">
+																	<span class="u-media-viewer__icon">
+																		<span
+																			class="fas fa-plus u-media-viewer__icon-inner"
+																		></span>
+																	</span>
+																</span>
+															</a>
+															<!-- End Gallery -->
+														</div>
+
+														<div class="col-auto">
+															<!-- Gallery -->
+															<a
+																class="js-fancybox max-width-60 u-media-viewer"
+																href="javascript:;"
+																data-src="{{ best_seller_products1.0.image2.url }}"
+																data-fancybox="fancyboxGallery6"
+																data-caption="Electro in frames - image #02"
+																data-speed="700"
+																data-is-infinite="true"
+															>
+																<img
+																	class="img-fluid border"
+																	src="{{ best_seller_products1.0.image2.url }}"
+																	alt="Image Description"
+																/>
+
+																<span class="u-media-viewer__container">
+																	<span class="u-media-viewer__icon">
+																		<span
+																			class="fas fa-plus u-media-viewer__icon-inner"
+																		></span>
+																	</span>
+																</span>
+															</a>
+															<!-- End Gallery -->
+														</div>
+
+														<div class="col-auto">
+															<!-- Gallery -->
+															<a
+																class="js-fancybox max-width-60 u-media-viewer"
+																href="javascript:;"
+																data-src="{{ best_seller_products1.0.image3.url }}"
+																data-fancybox="fancyboxGallery6"
+																data-caption="Electro in frames - image #03"
+																data-speed="700"
+																data-is-infinite="true"
+															>
+																<img
+																	class="img-fluid border"
+																	src="{{ best_seller_products1.0.image3.url }}"
+																	alt="Image Description"
+																/>
+
+																<span class="u-media-viewer__container">
+																	<span class="u-media-viewer__icon">
+																		<span
+																			class="fas fa-plus u-media-viewer__icon-inner"
+																		></span>
+																	</span>
+																</span>
+															</a>
+															<!-- End Gallery -->
+														</div>
+														<div class="col"></div>
+													</div>
+													<!-- End Gallery -->
+												</div>
+												<div class="flex-center-between">
+													<div class="prodcut-price">
+														<div class="text-gray-100">{{ best_seller_products1.0.price|intcomma }}</div>
+													</div>
+													<div class="d-none d-xl-block prodcut-add-cart">
+														<a
+														href="#"
+															class="btn-add-cart btn-add-cart__wide btn-primary transition-3d-hover"
+															><i class="ec ec-add-to-cart mr-2"></i> Add to
+															Cart</a
+														>
+													</div>
+												</div>
+											</div>
+											<div class="product-item__footer">
+												<div
+													class="border-top pt-2 flex-center-between flex-wrap"
+												>
+													<a
+													href="#"
+														class="text-gray-6 font-size-13"
+														><i class="ec ec-compare mr-1 font-size-15"></i>
+														Compare</a
+													>
+													<a
+													href="#"
+														class="text-gray-6 font-size-13"
+														><i class="ec ec-favorites mr-1 font-size-15"></i>
+														Add to Wishlist</a
+													>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div
+					class="tab-pane fade pt-2"
+					id="Tpills-two-example1"
+					role="tabpanel"
+					aria-labelledby="Tpills-two-example1-tab"
+				>
+					<div class="row no-gutters">
+						<div class="col-md-6 col-lg-7 col-wd-8 d-md-flex d-wd-block">
+							<ul class="row list-unstyled products-group no-gutters mb-0">
+								{% if best_seller_products2 %}
+								{% for item in best_seller_products1 %}
+									<li
+										class="col-md-6 col-lg-4 col-wd-3 product-item remove-divider"
+									>
+										<div
+											class="product-item__outer h-100 w-100 w-100 prodcut-box-shadow"
+										>
+											<div class="product-item__inner bg-white p-3">
+												<div class="product-item__body pb-xl-2">
+													<div class="mb-2">
+														<a
+														href="#"
+															class="font-size-12 text-gray-5"
+															>{{ item.categeory }}</a
+														>
+													</div>
+													<h5 class="mb-1 product-item__title">
+														<a
+														href="#"
+															class="text-blue font-weight-bold"
+															>{{ item.title }}</a
+														>
+													</h5>
+													<div class="mb-2">
+														<a
+														href="#"
+															class="d-block text-center"
+															><img
+																class="img-fluid"
+																src="{{ item.image1.url }}"
+																alt="Image Description"
+														/></a>
+													</div>
+													<div class="flex-center-between mb-1">
+														<div class="prodcut-price">
+															<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+														</div>
+														<div class="d-none d-xl-block prodcut-add-cart">
+															<a
+															href="#"
+																class="btn-add-cart btn-primary transition-3d-hover"
+																><i class="ec ec-add-to-cart"></i
+															></a>
+														</div>
+													</div>
+												</div>
+												<div class="product-item__footer">
+													<div
+														class="border-top pt-2 flex-center-between flex-wrap"
+													>
+														<a
+														href="#"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-compare mr-1 font-size-15"></i>
+															Compare</a
+														>
+														<a
+														href="#"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-favorites mr-1 font-size-15"></i>
+															Add to Wishlist</a
+														>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+								{% endfor %}
+								{% else %}
+									<p>Sorry no product yet</p>
+								{% endif %}
+							</ul>
+						</div>
+						<div class="col-md-6 col-lg-5 col-wd-4 products-group-1">
+							<ul
+								class="row list-unstyled products-group no-gutters bg-white h-100 mb-0"
+							>
+								<li class="col product-item remove-divider">
+									<div
+										class="product-item__outer h-100 w-100 w-100 prodcut-box-shadow"
+									>
+										<div class="product-item__inner bg-white p-3">
+											<div class="product-item__body d-flex flex-column">
+												<div class="mb-1">
+													<div class="mb-2">
+														<a
+														href="#"
+															class="font-size-12 text-gray-5"
+															>{{ best_seller_products2.0.category }}</a
+														>
+													</div>
+													<h5 class="mb-0 product-item__title">
+														<a
+														href="#"
+															class="text-blue font-weight-bold"
+															>{{ best_seller_products2.0.title }}</a
+														>
+													</h5>
+												</div>
+												<div class="mb-1 min-height-8-1">
+													<a
+													href="#"
+														class="d-block text-center my-4 mt-lg-6 mb-xl-5 mb-lg-0 mt-xl-0 mb-xl-0 mt-wd-6 mb-wd-5"
+														><img
+															class="img-fluid"
+															src="{{ best_seller_products2.0.image1.url }}"
+															alt="Image Description"
+													/></a>
+													<!-- Gallery -->
+													<div class="row mx-gutters-2 mb-3">
+														<div class="col-auto">
+															<!-- Gallery -->
+															<a
+																class="js-fancybox max-width-60 u-media-viewer"
+																href="javascript:;"
+																data-src="{{ best_seller_products2.0.image1.url }}"
+																data-fancybox="fancyboxGallery6"
+																data-caption="Electro in frames - image #01"
+																data-speed="700"
+																data-is-infinite="true"
+															>
+																<img
+																	class="img-fluid border"
+																	src="{{ best_seller_products2.0.image1.url }}"
+																	alt="Image Description"
+																/>
+
+																<span class="u-media-viewer__container">
+																	<span class="u-media-viewer__icon">
+																		<span
+																			class="fas fa-plus u-media-viewer__icon-inner"
+																		></span>
+																	</span>
+																</span>
+															</a>
+															<!-- End Gallery -->
+														</div>
+
+														<div class="col-auto">
+															<!-- Gallery -->
+															<a
+																class="js-fancybox max-width-60 u-media-viewer"
+																href="javascript:;"
+																data-src="{{ best_seller_products2.0.image2.url }}"
+																data-fancybox="fancyboxGallery6"
+																data-caption="Electro in frames - image #02"
+																data-speed="700"
+																data-is-infinite="true"
+															>
+																<img
+																	class="img-fluid border"
+																	src="{{ best_seller_products2.0.image2.url }}"
+																	alt="Image Description"
+																/>
+
+																<span class="u-media-viewer__container">
+																	<span class="u-media-viewer__icon">
+																		<span
+																			class="fas fa-plus u-media-viewer__icon-inner"
+																		></span>
+																	</span>
+																</span>
+															</a>
+															<!-- End Gallery -->
+														</div>
+
+														<div class="col-auto">
+															<!-- Gallery -->
+															<a
+																class="js-fancybox max-width-60 u-media-viewer"
+																href="javascript:;"
+																data-src="{{ best_seller_products2.0.image3.url }}"
+																data-fancybox="fancyboxGallery6"
+																data-caption="Electro in frames - image #03"
+																data-speed="700"
+																data-is-infinite="true"
+															>
+																<img
+																	class="img-fluid border"
+																	src="{{ best_seller_products2.0.image3.url }}"
+																	alt="Image Description"
+																/>
+
+																<span class="u-media-viewer__container">
+																	<span class="u-media-viewer__icon">
+																		<span
+																			class="fas fa-plus u-media-viewer__icon-inner"
+																		></span>
+																	</span>
+																</span>
+															</a>
+															<!-- End Gallery -->
+														</div>
+														<div class="col"></div>
+													</div>
+													<!-- End Gallery -->
+												</div>
+												<div class="flex-center-between">
+													<div class="prodcut-price">
+														<div class="text-gray-100">{{ best_seller_products2.0.price|intcomma }}</div>
+													</div>
+													<div class="d-none d-xl-block prodcut-add-cart">
+														<a
+														href="#"
+															class="btn-add-cart btn-add-cart__wide btn-primary transition-3d-hover"
+															><i class="ec ec-add-to-cart mr-2"></i> Add to
+															Cart</a
+														>
+													</div>
+												</div>
+											</div>
+											<div class="product-item__footer">
+												<div
+													class="border-top pt-2 flex-center-between flex-wrap"
+												>
+													<a
+													href="#"
+														class="text-gray-6 font-size-13"
+														><i class="ec ec-compare mr-1 font-size-15"></i>
+														Compare</a
+													>
+													<a
+													href="#"
+														class="text-gray-6 font-size-13"
+														><i class="ec ec-favorites mr-1 font-size-15"></i>
+														Add to Wishlist</a
+													>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div
+					class="tab-pane fade pt-2"
+					id="Tpills-three-example1"
+					role="tabpanel"
+					aria-labelledby="Tpills-three-example1-tab"
+				>
+					<div class="row no-gutters">
+						<div class="col-md-6 col-lg-7 col-wd-8 d-md-flex d-wd-block">
+							<ul class="row list-unstyled products-group no-gutters mb-0">
+								{% if best_seller_products3 %}
+								{% for item in best_seller_products1 %}
+									<li
+										class="col-md-6 col-lg-4 col-wd-3 product-item remove-divider"
+									>
+										<div
+											class="product-item__outer h-100 w-100 w-100 prodcut-box-shadow"
+										>
+											<div class="product-item__inner bg-white p-3">
+												<div class="product-item__body pb-xl-2">
+													<div class="mb-2">
+														<a
+														href="#"
+															class="font-size-12 text-gray-5"
+															>{{ item.categeory }}</a
+														>
+													</div>
+													<h5 class="mb-1 product-item__title">
+														<a
+														href="#"
+															class="text-blue font-weight-bold"
+															>{{ item.title }}</a
+														>
+													</h5>
+													<div class="mb-2">
+														<a
+														href="#"
+															class="d-block text-center"
+															><img
+																class="img-fluid"
+																src="{{ item.image1.url }}"
+																alt="Image Description"
+														/></a>
+													</div>
+													<div class="flex-center-between mb-1">
+														<div class="prodcut-price">
+															<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+														</div>
+														<div class="d-none d-xl-block prodcut-add-cart">
+															<a
+																hhref="#"
+																class="btn-add-cart btn-primary transition-3d-hover"
+																><i class="ec ec-add-to-cart"></i
+															></a>
+														</div>
+													</div>
+												</div>
+												<div class="product-item__footer">
+													<div
+														class="border-top pt-2 flex-center-between flex-wrap"
+													>
+														<a
+														href="{% url 'main:detail' item.id %}"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-compare mr-1 font-size-15"></i>
+															Compare</a
+														>
+														<a
+														href="#"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-favorites mr-1 font-size-15"></i>
+															Add to Wishlist</a
+														>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+								{% endfor %}
+								{% else %}
+									<p>Sorry no product yet</p>
+								{% endif %}
+							</ul>
+						</div>
+						<div class="col-md-6 col-lg-5 col-wd-4 products-group-1">
+							<ul
+								class="row list-unstyled products-group no-gutters bg-white h-100 mb-0"
+							>
+							<li class="col product-item remove-divider">
+								<div
+									class="product-item__outer h-100 w-100 w-100 prodcut-box-shadow"
+								>
+									<div class="product-item__inner bg-white p-3">
+										<div class="product-item__body d-flex flex-column">
+											<div class="mb-1">
+												<div class="mb-2">
+													<a
+													href="#"
+														class="font-size-12 text-gray-5"
+														>{{ best_seller_products3.0.category }}</a
+													>
+												</div>
+												<h5 class="mb-0 product-item__title">
+													<a
+													href="#"
+														class="text-blue font-weight-bold"
+														>{{ best_seller_products3.0.title }}</a
+													>
+												</h5>
+											</div>
+											<div class="mb-1 min-height-8-1">
+												<a
+													href="#"
+													class="d-block text-center my-4 mt-lg-6 mb-xl-5 mb-lg-0 mt-xl-0 mb-xl-0 mt-wd-6 mb-wd-5"
+													><img
+														class="img-fluid"
+														src="{{ best_seller_products3.0.image1.url }}"
+														alt="Image Description"
+												/></a>
+												<!-- Gallery -->
+												<div class="row mx-gutters-2 mb-3">
+													<div class="col-auto">
+														<!-- Gallery -->
+														<a
+															class="js-fancybox max-width-60 u-media-viewer"
+															href="javascript:;"
+															data-src="{{ best_seller_products3.0.image1.url }}"
+															data-fancybox="fancyboxGallery6"
+															data-caption="Electro in frames - image #01"
+															data-speed="700"
+															data-is-infinite="true"
+														>
+															<img
+																class="img-fluid border"
+																src="{{ best_seller_products3.0.image1.url }}"
+																alt="Image Description"
+															/>
+
+															<span class="u-media-viewer__container">
+																<span class="u-media-viewer__icon">
+																	<span
+																		class="fas fa-plus u-media-viewer__icon-inner"
+																	></span>
+																</span>
+															</span>
+														</a>
+														<!-- End Gallery -->
+													</div>
+
+													<div class="col-auto">
+														<!-- Gallery -->
+														<a
+															class="js-fancybox max-width-60 u-media-viewer"
+															href="javascript:;"
+															data-src="{{ best_seller_products3.0.image2.url }}"
+															data-fancybox="fancyboxGallery6"
+															data-caption="Electro in frames - image #02"
+															data-speed="700"
+															data-is-infinite="true"
+														>
+															<img
+																class="img-fluid border"
+																src="{{ best_seller_products3.0.image2.url }}"
+																alt="Image Description"
+															/>
+
+															<span class="u-media-viewer__container">
+																<span class="u-media-viewer__icon">
+																	<span
+																		class="fas fa-plus u-media-viewer__icon-inner"
+																	></span>
+																</span>
+															</span>
+														</a>
+														<!-- End Gallery -->
+													</div>
+
+													<div class="col-auto">
+														<!-- Gallery -->
+														<a
+															class="js-fancybox max-width-60 u-media-viewer"
+															href="javascript:;"
+															data-src="{{ best_seller_products3.0.image3.url }}"
+															data-fancybox="fancyboxGallery6"
+															data-caption="Electro in frames - image #03"
+															data-speed="700"
+															data-is-infinite="true"
+														>
+															<img
+																class="img-fluid border"
+																src="{{ best_seller_products3.0.image3.url }}"
+																alt="Image Description"
+															/>
+
+															<span class="u-media-viewer__container">
+																<span class="u-media-viewer__icon">
+																	<span
+																		class="fas fa-plus u-media-viewer__icon-inner"
+																	></span>
+																</span>
+															</span>
+														</a>
+														<!-- End Gallery -->
+													</div>
+													<div class="col"></div>
+												</div>
+												<!-- End Gallery -->
+											</div>
+											<div class="flex-center-between">
+												<div class="prodcut-price">
+													<div class="text-gray-100">{{ best_seller_products3.0.price|intcomma }}</div>
+												</div>
+												<div class="d-none d-xl-block prodcut-add-cart">
+													<a
+													href="#"
+														class="btn-add-cart btn-add-cart__wide btn-primary transition-3d-hover"
+														><i class="ec ec-add-to-cart mr-2"></i> Add to
+														Cart</a
+													>
+												</div>
+											</div>
+										</div>
+										<div class="product-item__footer">
+											<div
+												class="border-top pt-2 flex-center-between flex-wrap"
+											>
+												<a
+												href="#"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-compare mr-1 font-size-15"></i>
+													Compare</a
+												>
+												<a
+												href="#"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-favorites mr-1 font-size-15"></i>
+													Add to Wishlist</a
+												>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div
+					class="tab-pane fade pt-2"
+					id="Tpills-four-example1"
+					role="tabpanel"
+					aria-labelledby="Tpills-four-example1-tab"
+				>
+					<div class="row no-gutters">
+						<div class="col-md-6 col-lg-7 col-wd-8 d-md-flex d-wd-block">
+							<ul class="row list-unstyled products-group no-gutters mb-0">
+								{% if best_seller_products4 %}
+								{% for item in best_seller_products1 %}
+									<li
+										class="col-md-6 col-lg-4 col-wd-3 product-item remove-divider"
+									>
+										<div
+											class="product-item__outer h-100 w-100 w-100 prodcut-box-shadow"
+										>
+											<div class="product-item__inner bg-white p-3">
+												<div class="product-item__body pb-xl-2">
+													<div class="mb-2">
+														<a
+														href="#"
+															class="font-size-12 text-gray-5"
+															>{{ item.categeory }}</a
+														>
+													</div>
+													<h5 class="mb-1 product-item__title">
+														<a
+														href="#"
+															class="text-blue font-weight-bold"
+															>{{ item.title }}</a
+														>
+													</h5>
+													<div class="mb-2">
+														<a
+														href="#"
+															class="d-block text-center"
+															><img
+																class="img-fluid"
+																src="{{ item.image1.url }}"
+																alt="Image Description"
+														/></a>
+													</div>
+													<div class="flex-center-between mb-1">
+														<div class="prodcut-price">
+															<div class="text-gray-100">₦{{ item.price|intcomma }}</div>
+														</div>
+														<div class="d-none d-xl-block prodcut-add-cart">
+															<a
+															href="#"
+																class="btn-add-cart btn-primary transition-3d-hover"
+																><i class="ec ec-add-to-cart"></i
+															></a>
+														</div>
+													</div>
+												</div>
+												<div class="product-item__footer">
+													<div
+														class="border-top pt-2 flex-center-between flex-wrap"
+													>
+														<a
+														href="#"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-compare mr-1 font-size-15"></i>
+															Compare</a
+														>
+														<a
+														href="#"
+															class="text-gray-6 font-size-13"
+															><i class="ec ec-favorites mr-1 font-size-15"></i>
+															Add to Wishlist</a
+														>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+								{% endfor %}
+								{% else %}
+									<p>Sorry no product yet</p>
+								{% endif %}
+							</ul>
+						</div>
+						<div class="col-md-6 col-lg-5 col-wd-4 products-group-1">
+							<ul
+								class="row list-unstyled products-group no-gutters bg-white h-100 mb-0"
+							>
+							<li class="col product-item remove-divider">
+								<div
+									class="product-item__outer h-100 w-100 w-100 prodcut-box-shadow"
+								>
+									<div class="product-item__inner bg-white p-3">
+										<div class="product-item__body d-flex flex-column">
+											<div class="mb-1">
+												<div class="mb-2">
+													<a
+													href="#"
+														class="font-size-12 text-gray-5"
+														>{{ best_seller_products4.0.category }}</a
+													>
+												</div>
+												<h5 class="mb-0 product-item__title">
+													<a
+													href="#"
+														class="text-blue font-weight-bold"
+														>{{ best_seller_products4.0.title }}</a
+													>
+												</h5>
+											</div>
+											<div class="mb-1 min-height-8-1">
+												<a
+													href="#"
+													class="d-block text-center my-4 mt-lg-6 mb-xl-5 mb-lg-0 mt-xl-0 mb-xl-0 mt-wd-6 mb-wd-5"
+													><img
+														class="img-fluid"
+														src="{{ best_seller_products4.0.image1.url }}"
+														alt="Image Description"
+												/></a>
+												<!-- Gallery -->
+												<div class="row mx-gutters-2 mb-3">
+													<div class="col-auto">
+														<!-- Gallery -->
+														<a
+															class="js-fancybox max-width-60 u-media-viewer"
+															href="javascript:;"
+															data-src="{{ best_seller_products4.0.image1.url }}"
+															data-fancybox="fancyboxGallery6"
+															data-caption="Electro in frames - image #01"
+															data-speed="700"
+															data-is-infinite="true"
+														>
+															<img
+																class="img-fluid border"
+																src="{{ best_seller_products4.0.image1.url }}"
+																alt="Image Description"
+															/>
+
+															<span class="u-media-viewer__container">
+																<span class="u-media-viewer__icon">
+																	<span
+																		class="fas fa-plus u-media-viewer__icon-inner"
+																	></span>
+																</span>
+															</span>
+														</a>
+														<!-- End Gallery -->
+													</div>
+
+													<div class="col-auto">
+														<!-- Gallery -->
+														<a
+															class="js-fancybox max-width-60 u-media-viewer"
+															href="javascript:;"
+															data-src="{{ best_seller_products4.0.image2.url }}"
+															data-fancybox="fancyboxGallery6"
+															data-caption="Electro in frames - image #02"
+															data-speed="700"
+															data-is-infinite="true"
+														>
+															<img
+																class="img-fluid border"
+																src="{{ best_seller_products4.0.image2.url }}"
+																alt="Image Description"
+															/>
+
+															<span class="u-media-viewer__container">
+																<span class="u-media-viewer__icon">
+																	<span
+																		class="fas fa-plus u-media-viewer__icon-inner"
+																	></span>
+																</span>
+															</span>
+														</a>
+														<!-- End Gallery -->
+													</div>
+
+													<div class="col-auto">
+														<!-- Gallery -->
+														<a
+															class="js-fancybox max-width-60 u-media-viewer"
+															href="javascript:;"
+															data-src="{{ best_seller_products4.0.image3.url }}"
+															data-fancybox="fancyboxGallery6"
+															data-caption="Electro in frames - image #03"
+															data-speed="700"
+															data-is-infinite="true"
+														>
+															<img
+																class="img-fluid border"
+																src="{{ best_seller_products4.0.image3.url }}"
+																alt="Image Description"
+															/>
+
+															<span class="u-media-viewer__container">
+																<span class="u-media-viewer__icon">
+																	<span
+																		class="fas fa-plus u-media-viewer__icon-inner"
+																	></span>
+																</span>
+															</span>
+														</a>
+														<!-- End Gallery -->
+													</div>
+													<div class="col"></div>
+												</div>
+												<!-- End Gallery -->
+											</div>
+											<div class="flex-center-between">
+												<div class="prodcut-price">
+													<div class="text-gray-100">{{ best_seller_products4.0.price|intcomma }}</div>
+												</div>
+												<div class="d-none d-xl-block prodcut-add-cart">
+													<a
+													href="#"
+														class="btn-add-cart btn-add-cart__wide btn-primary transition-3d-hover"
+														><i class="ec ec-add-to-cart mr-2"></i> Add to
+														Cart</a
+													>
+												</div>
+											</div>
+										</div>
+										<div class="product-item__footer">
+											<div
+												class="border-top pt-2 flex-center-between flex-wrap"
+											>
+												<a
+												href="#"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-compare mr-1 font-size-15"></i>
+													Compare</a
+												>
+												<a
+												href="#"
+													class="text-gray-6 font-size-13"
+													><i class="ec ec-favorites mr-1 font-size-15"></i>
+													Add to Wishlist</a
+												>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Tab Content -->
+		</div>
+
+		<!-- Content Placeholder -->
+		<div class="container space-2 d-none">
+			<!-- Nav Pills -->
+			<div class="position-relative text-center z-index-2 mb-3">
+				<div
+					class="d-flex justify-content-between border-bottom border-color-1 flex-lg-nowrap flex-wrap border-md-down-top-0 border-md-down-bottom-0"
+				>
+					<h3 class="section-title mb-0 pb-2 font-size-22">Bestsellers</h3>
+
+					<ul
+						class="nav nav-pills nav-tab-pill mb-2 pt-3 pt-lg-0 mb-0 border-top border-color-1 border-lg-top-0 align-items-center font-size-15 font-size-15-lg flex-nowrap flex-lg-wrap overflow-auto overflow-lg-visble pr-0"
+						id="pills-tab-2"
+						role="tablist"
+					>
+						<li class="nav-item flex-shrink-0 flex-lg-shrink-1">
+							<a
+								class="nav-link rounded-pill active"
+								id="Gpills-one-example1-tab"
+								data-toggle="pill"
+								href="#Gpills-one-example1"
+								role="tab"
+								aria-controls="Gpills-one-example1"
+								aria-selected="true"
+								>Top 20</a
+							>
+						</li>
+						<li class="nav-item flex-shrink-0 flex-lg-shrink-1">
+							<a
+								class="nav-link rounded-pill"
+								id="Gpills-two-example1-tab"
+								data-toggle="pill"
+								href="#Gpills-two-example1"
+								role="tab"
+								aria-controls="Gpills-two-example1"
+								aria-selected="false"
+								>Smart Phones & Tablets</a
+							>
+						</li>
+						<li class="nav-item flex-shrink-0 flex-lg-shrink-1">
+							<a
+								class="nav-link rounded-pill"
+								id="Gpills-three-example1-tab"
+								data-toggle="pill"
+								href="#Gpills-three-example1"
+								role="tab"
+								aria-controls="Gpills-three-example1"
+								aria-selected="false"
+								>Laptops &amp; Computers</a
+							>
+						</li>
+						<li class="nav-item flex-shrink-0 flex-lg-shrink-1">
+							<a
+								class="nav-link rounded-pill"
+								id="Gpills-four-example1-tab"
+								data-toggle="pill"
+								href="#Gpills-four-example1"
+								role="tab"
+								aria-controls="Gpills-four-example1"
+								aria-selected="false"
+								>Video Cameras</a
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- End Nav Pills -->
+
+			<!-- Tab Content -->
+			<div class="tab-content" id="Gpills-tabContent">
+				<div
+					class="tab-pane fade pt-2 show active"
+					id="Gpills-one-example1"
+					role="tabpanel"
+					aria-labelledby="Gpills-one-example1-tab"
+				>
+					<div class="row no-gutters">
+						<div class="col-md-6 col-lg-7 col-wd-8 d-md-flex d-wd-block">
+							<ul
+								class="row list-unstyled products-group no-gutters mb-0 w-100"
+							>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-lg-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-lg-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-wd-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-wd-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-6 col-lg-5 col-wd-4 products-group-1">
+							<ul
+								class="row list-unstyled products-group no-gutters bg-white h-100 mb-0"
+							>
+								<li class="col product-item remove-divider">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="d-flex flex-column">
+												<div class="mb-1">
+													<div class="mb-2">
+														<div
+															class="bg-gray-1 bg-animation rounded height-10 w-40"
+														></div>
+													</div>
+													<div class="mb-3">
+														<div
+															class="bg-gray-1 bg-animation rounded height-12 mb-1 w-90"
+														></div>
+														<div
+															class="bg-gray-1 bg-animation rounded height-12 w-80"
+														></div>
+													</div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-450"></div>
+												</div>
+												<div class="mb-4">
+													<!-- Gallery -->
+													<div class="row mx-gutters-2">
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+														<div class="col"></div>
+													</div>
+													<!-- End Gallery -->
+												</div>
+												<div class="flex-center-between">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-40"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-134 rounded-pill"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div
+					class="tab-pane fade pt-2"
+					id="Gpills-two-example1"
+					role="tabpanel"
+					aria-labelledby="Gpills-two-example1-tab"
+				>
+					<div class="row no-gutters">
+						<div class="col-md-6 col-lg-7 col-wd-8 d-md-flex d-wd-block">
+							<ul
+								class="row list-unstyled products-group no-gutters mb-0 w-100"
+							>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-lg-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-lg-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-wd-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-wd-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-6 col-lg-5 col-wd-4 products-group-1">
+							<ul
+								class="row list-unstyled products-group no-gutters bg-white h-100 mb-0"
+							>
+								<li class="col product-item remove-divider">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="d-flex flex-column">
+												<div class="mb-1">
+													<div class="mb-2">
+														<div
+															class="bg-gray-1 bg-animation rounded height-10 w-40"
+														></div>
+													</div>
+													<div class="mb-3">
+														<div
+															class="bg-gray-1 bg-animation rounded height-12 mb-1 w-90"
+														></div>
+														<div
+															class="bg-gray-1 bg-animation rounded height-12 w-80"
+														></div>
+													</div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-450"></div>
+												</div>
+												<div class="mb-4">
+													<!-- Gallery -->
+													<div class="row mx-gutters-2">
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+														<div class="col"></div>
+													</div>
+													<!-- End Gallery -->
+												</div>
+												<div class="flex-center-between">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-40"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-134 rounded-pill"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div
+					class="tab-pane fade pt-2"
+					id="Gpills-three-example1"
+					role="tabpanel"
+					aria-labelledby="Gpills-three-example1-tab"
+				>
+					<div class="row no-gutters">
+						<div class="col-md-6 col-lg-7 col-wd-8 d-md-flex d-wd-block">
+							<ul
+								class="row list-unstyled products-group no-gutters mb-0 w-100"
+							>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-lg-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-lg-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-wd-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-wd-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-6 col-lg-5 col-wd-4 products-group-1">
+							<ul
+								class="row list-unstyled products-group no-gutters bg-white h-100 mb-0"
+							>
+								<li class="col product-item remove-divider">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="d-flex flex-column">
+												<div class="mb-1">
+													<div class="mb-2">
+														<div
+															class="bg-gray-1 bg-animation rounded height-10 w-40"
+														></div>
+													</div>
+													<div class="mb-3">
+														<div
+															class="bg-gray-1 bg-animation rounded height-12 mb-1 w-90"
+														></div>
+														<div
+															class="bg-gray-1 bg-animation rounded height-12 w-80"
+														></div>
+													</div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-450"></div>
+												</div>
+												<div class="mb-4">
+													<!-- Gallery -->
+													<div class="row mx-gutters-2">
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+														<div class="col"></div>
+													</div>
+													<!-- End Gallery -->
+												</div>
+												<div class="flex-center-between">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-40"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-134 rounded-pill"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div
+					class="tab-pane fade pt-2"
+					id="Gpills-four-example1"
+					role="tabpanel"
+					aria-labelledby="Gpills-four-example1-tab"
+				>
+					<div class="row no-gutters">
+						<div class="col-md-6 col-lg-7 col-wd-8 d-md-flex d-wd-block">
+							<ul
+								class="row list-unstyled products-group no-gutters mb-0 w-100"
+							>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-lg-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-lg-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-wd-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-6 col-lg-4 col-wd-3 d-md-none d-wd-block">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="pb-xl-2">
+												<div class="mb-2">
+													<div
+														class="bg-gray-1 bg-animation rounded height-10 w-60"
+													></div>
+												</div>
+												<div class="mb-3">
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 mb-1"
+													></div>
+													<div
+														class="bg-gray-1 bg-animation rounded height-12 w-80"
+													></div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-190"></div>
+												</div>
+												<div class="flex-center-between mb-1">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-60"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-35 rounded-circle"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-6 col-lg-5 col-wd-4 products-group-1">
+							<ul
+								class="row list-unstyled products-group no-gutters bg-white h-100 mb-0"
+							>
+								<li class="col product-item remove-divider">
+									<div class="h-100 w-100 prodcut-box-shadow">
+										<div class="bg-white p-3">
+											<div class="d-flex flex-column">
+												<div class="mb-1">
+													<div class="mb-2">
+														<div
+															class="bg-gray-1 bg-animation rounded height-10 w-40"
+														></div>
+													</div>
+													<div class="mb-3">
+														<div
+															class="bg-gray-1 bg-animation rounded height-12 mb-1 w-90"
+														></div>
+														<div
+															class="bg-gray-1 bg-animation rounded height-12 w-80"
+														></div>
+													</div>
+												</div>
+												<div class="mb-4">
+													<div class="bg-gray-1 height-450"></div>
+												</div>
+												<div class="mb-4">
+													<!-- Gallery -->
+													<div class="row mx-gutters-2">
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+
+														<div class="col-auto">
+															<div class="bg-gray-1 width-60 height-60"></div>
+														</div>
+														<div class="col"></div>
+													</div>
+													<!-- End Gallery -->
+												</div>
+												<div class="flex-center-between">
+													<div
+														class="bg-gray-1 bg-animation rounded height-20 w-40"
+													></div>
+													<div
+														class="bg-gray-1 height-35 width-134 rounded-pill"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Tab Content -->
+		</div>
+		<!-- End Content Placeholder -->
+	</div>
+
+
+	<!-- End Brand Carousel -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.slider-container').slick({
+                autoplay: true,
+                autoplaySpeed: 5000,
+                dots: false, // Completely disabled dots
+                arrows: false,
+                fade: true,
+                speed: 1000,
+                pauseOnHover: false,
+                cssEase: 'linear'
+            });
+            
+            // Reset animations when slide changes
+            $('.slider-container').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+                // Remove animation classes from all slides
+                $('.slider-slide').find('.fadeInUp').removeClass('fadeInUp');
+                
+                // Add animation classes to the next slide
+                setTimeout(function(){
+                    $('.slider-slide').eq(nextSlide).find('.subtitle').addClass('fadeInUp');
+                    $('.slider-slide').eq(nextSlide).find('.title').addClass('fadeInUp');
+                    $('.slider-slide').eq(nextSlide).find('.cta-button').addClass('fadeInUp');
+                }, 100);
+            });
+            
+            // Trigger initial animations
+            $('.slider-slide').first().find('.subtitle').addClass('fadeInUp');
+            $('.slider-slide').first().find('.title').addClass('fadeInUp');
+            $('.slider-slide').first().find('.cta-button').addClass('fadeInUp');
+            
+            // Handle video playback on slide change
+            $('.slider-container').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+                // Pause current slide video if it exists
+                const currentVideo = $('.slider-slide').eq(currentSlide).find('video')[0];
+                if (currentVideo) {
+                    currentVideo.pause();
+                }
+                
+                // Play next slide video if it exists
+                const nextVideo = $('.slider-slide').eq(nextSlide).find('video')[0];
+                if (nextVideo) {
+                    nextVideo.play();
+                }
+            });
+        });
+    </script>
+
+{% endblock %}

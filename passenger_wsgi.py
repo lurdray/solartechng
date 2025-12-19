@@ -1,0 +1,1 @@
+from solarTech.wsgi import application
